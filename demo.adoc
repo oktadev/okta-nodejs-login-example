@@ -1,0 +1,74 @@
+:experimental:
+// Define unicode for Apple Command key.
+:commandkey: &#8984;
+:toc: macro
+
+== Node.js Login Demo Steps
+
+In this demo, I'll show how to create a Node.js app with Express and add a login feature. It'll be simple, and it'll also be secure! 😃
+
+**Prerequisites:** https://nodejs.org/[Node 12]+
+
+TIP: The brackets at the end of some steps indicate the IntelliJ Live Templates to use. You can find the template definitions at https://github.com/mraible/idea-live-templates[mraible/idea-live-templates].
+
+toc::[]
+
+// tabs: OIDC Middleware, @oktadev/schematics, GitHub repo, developer.okta.com/signup
+
+=== Create an Express App
+
+. Create an Express app with the Express application generator and Pug
++
+[source,shell]
+----
+mkdir nodejs-login
+cd nodejs-login
+npx express-generator --view=pug
+----
+
+=== Create an OIDC App on Okta
+
+. Log into the Okta developer dashboard (or https://developer.okta.com/signup/[signup through]), go to **Applications** > **Add Application**.
+. Choose **Web** as the platform and click **Next**.
+. Change the **Login redirect URI** to `http://localhost:3000/callback`.
+. Change the **Logout redirect URI** to `http://localhost:3000`.
+. Select **Done**.
+
+=== Add Node.js Login with Okta
+
+. Install Schematics CLI globally.
++
+[source,shell]
+----
+npm install -g @angular-devkit/schematics-cli
+----
+
+. Install and run OktaDev Schematics in your `nodejs-login` project.
++
+[source,shell]
+----
+npm i -D @oktadev/schematics
+schematics @oktadev/schematics:add-auth --issuer=$issuer \
+  --clientId=$clientId --clientSecret=$clientSecret
+----
++
+CAUTION: An `.env` file will be generated with your secrets. Make sure to add `*.env` to `.gitignore`!
+
+=== Run Your Express App with Login
+
+. Start your app and authenticate with Okta. 🎊
++
+[source,shell]
+----
+npm start
+----
+
+TIP: See the https://github.com/okta/okta-oidc-js/tree/master/packages/oidc-middleware#readme[Okta OIDC Middleware SDK] and https://github.com/okta/okta-sdk-nodejs[Okta Node.js SDK] for more information about Node.js and Okta.
+
+== Node.js + Express + Okta = Easy Login
+
+⚡️ Find the code on GitHub: https://github.com/oktadeveloper/okta-nodejs-login-example[@oktadeveloper/okta-nodejs-login-example].
+
+✅ https://developer.okta.com/search/#q=node.js[Check out all our Node.js blog posts] on the Okta developer blog.
+
+
