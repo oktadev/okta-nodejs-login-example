@@ -1,6 +1,6 @@
 # Node.js + Express Login Example
 
-This example shows how to add Login to a Node.js application.
+This example shows how to add Login to a Node.js application. Please read [Node.js Login with Express and OIDC](https://developer.okta.com/blog/2020/06/16/nodejs-login) to see how it was created.
 
 **Prerequisites:** 
 
